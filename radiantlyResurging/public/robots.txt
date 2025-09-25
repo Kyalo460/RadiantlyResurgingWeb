@@ -6,4 +6,4 @@ Allow: /
 Host: https://radiantly-resurging-web.vercel.app/
 
 # Sitemaps
-Sitemap: https://radiantlyresurging.vercel.app/sitemap.xml
+Sitemap: https://radiantly-resurging-web.vercel.app/sitemap.xml
