@@ -1,1 +1,1 @@
-This a Blog website.
+This is a Blog website.
