@@ -23,6 +23,7 @@
     "paths": {
       "@/*": ["./*"]
     },
+    "typeRoots": ["./node_modules/@types", "./types"],
     "strictNullChecks": true
   },
   "include": [
@@ -30,7 +31,8 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.js",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "types/**/*"
   ],
   "exclude": ["node_modules"]
 }

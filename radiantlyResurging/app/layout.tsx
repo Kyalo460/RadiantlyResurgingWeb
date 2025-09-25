@@ -2,6 +2,7 @@ import "@/styles/tailwind.css";
 import { Providers } from "./providers";
 import { cx } from "@/utils/all";
 import { Inter, Lora } from "next/font/google";
+import { Metadata } from "next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -13,6 +14,14 @@ const lora = Lora({
   variable: "--font-lora"
 });
 
+export const metadata: Metadata = {
+  icons: {
+    icon: "/img/icons/favicon_io/favicon-32x32.png",
+    shortcut: "/img/icons/favicon_io/favicon-32x32.png",
+    apple: "/img/icons/favicon_io/favicon-32x32.png"
+  }
+};
+
 export default function RootLayout({
   children
 }: {
@@ -23,7 +32,7 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       className={cx(inter.variable, lora.variable)}>
-      <body className="antialiased text-gray-800 dark:bg-black dark:text-gray-400">
+      <body className="text-gray-800 antialiased dark:bg-black dark:text-gray-400">
         <Providers>{children}</Providers>
       </body>
     </html>

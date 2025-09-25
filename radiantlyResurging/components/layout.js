@@ -12,7 +12,7 @@ import Footer from "@/components/footer";
 
 export default function Layout(props) {
   const { children } = props;
-  const ogimage = urlForImage(props?.openGraphImage) ?? "";
+  const ogimage = "/opengraph.jpg";
   return (
     <>
       <Head>
@@ -30,8 +30,8 @@ export default function Layout(props) {
           images: [
             {
               url: ogimage,
-              width: 800,
-              height: 600,
+              width: 1200,
+              height: 630,
               alt: props.title
             }
           ],
@@ -47,7 +47,7 @@ export default function Layout(props) {
       <div
         className={cx(
           props?.fontStyle,
-          "antialiased text-gray-800 dark:bg-black dark:text-gray-400"
+          "text-gray-800 antialiased dark:bg-black dark:text-gray-400"
         )}>
         {props.alternate ? (
           <NavbarAlt {...props} />

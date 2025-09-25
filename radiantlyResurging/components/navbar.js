@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useState, useEffect } from "react";
-import { Menu, Transition, Disclosure } from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react";
 import Container from "@/components/container";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -53,123 +53,86 @@ export default function Navbar(props) {
       )}>
       <Container>
         <nav>
-          <Disclosure>
-            {({ open }) => (
-              <>
-                <div className="w-full flex-col items-center justify-start md:order-none md:flex md:w-auto md:flex-1 md:flex-row md:justify-center">
-                  {menu.map((item, index) => (
-                    <Fragment key={`${item.label}${index}`}>
-                      {item.children && item.children.length > 0 ? (
-                        <DropdownMenu
-                          menu={item}
-                          key={`${item.label}${index}`}
-                          items={item.children}
-                        />
-                      ) : (
-                        <Link
-                          href={item.href}
-                          key={`${item.label}${index}`}
-                          className={cx(
-                            "font-medium transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg",
-                            isScrolled
-                              ? "px-3 py-1 text-sm"
-                              : "px-5 py-3 text-lg",
-                            isActive(item.href)
-                              ? "border-b-2 border-[#a53860] text-[#a53860]"
-                              : "text-[#01161e] hover:text-[#a53860]"
-                          )}
-                          target={item.external ? "_blank" : ""}
-                          rel={item.external ? "noopener" : ""}>
-                          {item.label}
-                        </Link>
+          {/* Navigation Menu - Responsive */}
+          <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center space-x-1 sm:space-x-2 md:space-x-4">
+              {menu.map((item, index) => (
+                <Fragment key={`${item.label}${index}`}>
+                  {item.children && item.children.length > 0 ? (
+                    <DropdownMenu
+                      menu={item}
+                      key={`${item.label}${index}`}
+                      items={item.children}
+                    />
+                  ) : (
+                    <Link
+                      href={item.href}
+                      key={`${item.label}${index}`}
+                      className={cx(
+                        "rounded-md font-medium transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg",
+                        // Responsive padding and text sizes
+                        isScrolled
+                          ? "px-2 py-1 text-xs sm:px-3 sm:py-2 sm:text-sm md:px-3 md:py-2 md:text-sm"
+                          : "px-2 py-1 text-sm sm:px-3 sm:py-2 sm:text-base md:px-4 md:py-2 md:text-base",
+                        isActive(item.href)
+                          ? "border-b-2 border-[#a53860] text-[#a53860]"
+                          : "text-[#01161e] hover:bg-white/50 hover:text-[#a53860]"
                       )}
-                    </Fragment>
-                  ))}
-                </div>
-
-                <Disclosure.Panel>
-                  <div className="order-2 -ml-4 mt-4 flex w-full flex-col items-center justify-start md:hidden">
-                    {menu.map((item, index) => (
-                      <Fragment key={`${item.label}${index}`}>
-                        {item.children && item.children.length > 0 ? (
-                          <DropdownMenu
-                            menu={item}
-                            key={`${item.label}${index}`}
-                            items={item.children}
-                            mobile={true}
-                          />
-                        ) : (
-                          <Link
-                            href={item.href}
-                            key={`${item.label}${index}`}
-                            className={cx(
-                              "w-full px-5 py-2 text-sm font-medium transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg",
-                              isActive(item.href)
-                                ? "border-l-4 border-blue-500 bg-blue-50 text-blue-500 dark:bg-blue-900/20"
-                                : "text-[#c1121f] hover:text-blue-500 dark:text-gray-400"
-                            )}
-                            target={item.external ? "_blank" : ""}
-                            rel={item.external ? "noopener" : ""}>
-                            {item.label}
-                          </Link>
-                        )}
-                      </Fragment>
-                    ))}
-                  </div>
-                </Disclosure.Panel>
-              </>
-            )}
-          </Disclosure>
+                      target={item.external ? "_blank" : ""}
+                      rel={item.external ? "noopener" : ""}>
+                      {item.label}
+                    </Link>
+                  )}
+                </Fragment>
+              ))}
+            </div>
+          </div>
         </nav>
       </Container>
     </div>
   );
 }
 
-const DropdownMenu = ({ menu, items, mobile }) => {
+const DropdownMenu = ({ menu, items }) => {
   return (
-    <Menu
-      as="div"
-      className={cx("relative text-left", mobile && "w-full")}>
+    <Menu as="div" className="relative text-left">
       {({ open }) => (
         <>
           <Menu.Button
             className={cx(
-              "flex items-center gap-x-1 rounded-md px-5 py-2 text-sm font-medium  outline-none transition-all focus:outline-none focus-visible:text-indigo-500 focus-visible:ring-1 dark:focus-visible:bg-gray-800",
-              open
-                ? "text-blue-500 hover:text-blue-500"
-                : " text-gray-600 dark:text-gray-400 ",
-              mobile ? "w-full px-4 py-2 " : "inline-block px-4 py-2"
+              "flex items-center justify-between gap-x-1 rounded-md px-2 py-1 text-sm font-medium text-[#01161e] outline-none transition-all hover:bg-white/50 hover:text-[#a53860] focus:outline-none sm:px-3 sm:py-2 sm:text-base md:px-4 md:py-2 md:text-base",
+              open && "text-[#a53860]"
             )}>
             <span>{menu.label}</span>
-            <ChevronDownIcon className="mt-0.5 h-4 w-4" />
+            <ChevronDownIcon
+              className={cx(
+                "h-3 w-3 transition-transform duration-200 sm:h-4 sm:w-4",
+                open && "rotate-180"
+              )}
+            />
           </Menu.Button>
           <Transition
             as={Fragment}
-            enter="lg:transition lg:ease-out lg:duration-100"
-            enterFrom="lg:transform lg:opacity-0 lg:scale-95"
-            enterTo="lg:transform lg:opacity-100 lg:scale-100"
-            leave="lg:transition lg:ease-in lg:duration-75"
-            leaveFrom="lg:transform lg:opacity-100 lg:scale-100"
-            leaveTo="lg:transform lg:opacity-0 lg:scale-95">
-            <Menu.Items
-              className={cx(
-                "z-20 origin-top-left rounded-md  focus:outline-none  lg:absolute lg:left-0  lg:w-56",
-                !mobile && "bg-white shadow-lg  dark:bg-gray-800"
-              )}>
-              <div className={cx(!mobile && "py-3")}>
+            enter="transition ease-out duration-200"
+            enterFrom="transform opacity-0 scale-95"
+            enterTo="transform opacity-100 scale-100"
+            leave="transition ease-in duration-150"
+            leaveFrom="transform opacity-100 scale-100"
+            leaveTo="transform opacity-0 scale-95">
+            <Menu.Items className="absolute left-0 z-20 mt-2 w-48 origin-top-left rounded-md border border-gray-200 bg-white shadow-lg focus:outline-none dark:border-gray-700 dark:bg-gray-800 sm:w-56">
+              <div className="py-1">
                 {items.map((item, index) => (
                   <Menu.Item as="div" key={`${item.title}${index}`}>
                     {({ active }) => (
                       <Link
                         href={item?.path ? item.path : "#"}
                         className={cx(
-                          "flex items-center space-x-2 px-5 py-2 text-sm lg:space-x-4",
+                          "flex items-center px-4 py-2 text-sm transition-colors duration-150",
                           active
-                            ? "text-blue-500"
-                            : "text-gray-700 hover:text-blue-500 focus:text-blue-500 dark:text-gray-300"
+                            ? "bg-[#a53860]/10 text-[#a53860]"
+                            : "text-gray-700 hover:bg-[#a53860]/10 hover:text-[#a53860] dark:text-gray-300 dark:hover:bg-gray-700"
                         )}>
-                        <span> {item.title}</span>
+                        <span>{item.title}</span>
                       </Link>
                     )}
                   </Menu.Item>
