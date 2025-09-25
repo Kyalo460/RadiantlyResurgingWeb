@@ -64,7 +64,7 @@ export default function HomePage({ posts }) {
         <h2 className="mb-4 text-4xl font-bold text-[#011627]">
           Latest Blogs
         </h2>
-        <p className="mx-auto max-w-2xl text-lg text-gray-600">
+        <p className="mx-2 max-w-2xl text-lg text-gray-600 md:mx-auto">
           Discover inspiring stories, practical wisdom, and
           faith-based insights to guide your journey
         </p>
