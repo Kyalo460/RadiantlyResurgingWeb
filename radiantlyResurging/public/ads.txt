@@ -1,0 +1,12 @@
+# ads.txt file for RadiantlyResurging
+# This file is required by Google AdSense to verify authorized sellers
+
+# Google AdSense
+google.com, pub-1152993289561686, DIRECT, f08c47fec0942fa0
+
+# Additional ad networks can be added here if needed
+# Format: <Field #1>, <Field #2>, <Field #3>, <Field #4>
+# Field #1: Domain name of the advertising system
+# Field #2: Publisher's Account ID  
+# Field #3: Type of Account/Relationship (DIRECT or RESELLER)
+# Field #4: Certification Authority ID (optional)
