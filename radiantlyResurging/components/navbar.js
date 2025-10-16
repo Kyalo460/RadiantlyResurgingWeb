@@ -40,6 +40,10 @@ export default function Navbar(props) {
       href: "/contact"
     },
     {
+      label: "Coaching",
+      href: "/coaching"
+    },
+    {
       label: "Store",
       href: "/store"
     }

@@ -1,10 +1,12 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
+import StorePaymentModal from "@/components/StorePaymentModal";
 
 export default function Store() {
   const [cart, setCart] = useState([]);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [showAddedToCart, setShowAddedToCart] = useState(false);
   const [addedItem, setAddedItem] = useState(null);
 
@@ -92,24 +94,14 @@ export default function Store() {
     if (cart.length === 0) {
       alert("Your cart is empty!");
     } else {
-      // Here you would typically handle the checkout process, e.g., sending data to a server
-      // For this example, we'll just show an alert and clear the cart
-      // In a real application, you would also handle payment processing here
-      console.log("Checkout with items:", cart);
-      // Simulate successful checkout
-      // and clear the cart
-      console.log("Total Price:", getTotalPrice());
-      // Show thank you message
-      // alert(
-      //   `Thank you for your purchase! Total: $${getTotalPrice()}`
-      // );
-      alert(
-        "This feature is coming soon! Thank you for your patience."
-      );
-      // Clear cart
-      setCart([]);
+      // Close cart modal and open payment modal
       setIsCheckoutOpen(false);
+      setIsPaymentModalOpen(true);
     }
+  };
+
+  const handleClearCart = () => {
+    setCart([]);
   };
 
   return (
@@ -276,6 +268,14 @@ export default function Store() {
           </div>
         </div>
       )}
+
+      {/* PayPal Payment Modal */}
+      <StorePaymentModal
+        cart={cart}
+        isOpen={isPaymentModalOpen}
+        onClose={() => setIsPaymentModalOpen(false)}
+        onClearCart={handleClearCart}
+      />
     </div>
   );
 }
