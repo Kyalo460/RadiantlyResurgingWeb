@@ -9,15 +9,19 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const post = await getPostBySlug(params.slug);
-  return { title: post.title };
+  if (!post) return { title: "Post Not Found" };
+  return { title: post.title || "Untitled Post" };
 }
 
 export default async function Page({ params }) {
   const post = await getPostBySlug(params.slug);
-  if (!post?.slug) {
+
+  // Add validation to check if post exists and has required data
+  if (!post || !post.slug) {
     notFound();
   }
+
   return <PostPage post={post} />;
 }
 
-// export const revalidate = 60;
+export const revalidate = 60;
