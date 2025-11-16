@@ -117,14 +117,11 @@ const components = {
       </span>
     ),
     link: ({ children, value }) => {
-      const rel = !value.href.startsWith("/")
-        ? "noopener"
-        : undefined;
-      const target = !value.href.startsWith("/")
-        ? "_blank"
-        : undefined;
+      const href = value?.href || "#";
+      const rel = !href.startsWith("/") ? "noopener" : undefined;
+      const target = !href.startsWith("/") ? "_blank" : undefined;
       return (
-        <a href={value.href} rel={rel} target={target}>
+        <a href={href} rel={rel} target={target}>
           {children}
         </a>
       );
